@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Frete MAXLOG - Usiquímica</title>
+    <title>Calculadora de Frete Carvalima - Usiquímica</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -156,39 +156,27 @@
             margin-top: 5px;
         }
 
-        .cargo-type {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .cargo-option {
-            flex: 1;
-            padding: 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .cargo-option:hover {
-            border-color: #0000A3;
-            background: #f8fafc;
-        }
-
-        .cargo-option.selected {
-            border-color: #0000A3;
-            background-color: #e6f3ff;
-            color: #0000A3;
+        .single-mode-alert {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px 18px;
+            color: #92400e;
             font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .cargo-option .icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: block;
+        .single-mode-alert .alert-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .single-mode-alert .alert-text {
+            flex: 1;
+            line-height: 1.4;
         }
 
         .produtos-section {
@@ -646,48 +634,6 @@
             justify-content: center;
         }
 
-        .lotacao-options {
-            display: none;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .lotacao-options.show {
-            display: grid;
-        }
-
-        .vehicle-option {
-            padding: 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .vehicle-option:hover {
-            border-color: #0000A3;
-            background-color: #f8fafc;
-        }
-
-        .vehicle-option.selected {
-            border-color: #0000A3;
-            background-color: #e6f3ff;
-            color: #0000A3;
-        }
-
-        .vehicle-option .vehicle-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .vehicle-option .vehicle-info {
-            font-size: 0.85rem;
-            color: #6b7280;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -881,44 +827,19 @@
     <div class="container">
         <div class="header">
             <img src="https://i.ibb.co/JRyk30LH/logousimax.png" alt="Logo Usimax" class="header-logo">            
-            <h1>CALCULADORA DE FRETE</h1>
+            <h1>CALCULADORA DE FRETE CARVALIMA</h1>
         </div>
 
         <div class="content">
             <div class="info-box">
                 <span class="icon">💡</span>
-                <strong>Novidade:</strong> Para cotar o preço especial do Negro de fumo, basta escrever o nome do produto ou informar o código do mesmo.
+                <strong>Tabela Atualizada:</strong> Valores baseados na nova tabela padrão Carvalima (origem São Paulo) com faixas de quilometragem e taxas oficiais.
             </div>
 
-            <div class="form-group">
-                <label>
-                    Tipo de Carga
-                    <span class="tooltip" data-tooltip="Carga fracionada: até 32 toneladas | Lotação: veículo completo">?</span>
-                </label>
-                <div class="cargo-type">
-                    <div class="cargo-option selected" data-type="fracionada">
-                        <span class="icon">📦</span>
-                        Carga Fracionada
-                    </div>
-                    <div class="cargo-option" data-type="lotacao">
-                        <span class="icon">🚛</span>
-                        Carga Lotação
-                    </div>
-                </div>
-            </div>
-
-            <div class="lotacao-options" id="lotacaoOptions">
-                <div class="vehicle-option selected" data-vehicle="carreta32">
-                    <div class="vehicle-name">Carreta 32 ton</div>
-                    <div class="vehicle-info">28 paletes</div>
-                </div>
-                <div class="vehicle-option" data-vehicle="carreta25">
-                    <div class="vehicle-name">Carreta 25 ton</div>
-                    <div class="vehicle-info">28 ou 30 paletes</div>
-                </div>
-                <div class="vehicle-option" data-vehicle="truck13">
-                    <div class="vehicle-name">Truck 13 ton</div>
-                    <div class="vehicle-info">16 paletes</div>
+            <div class="single-mode-alert">
+                <span class="alert-icon">🚛</span>
+                <div class="alert-text">
+                    Esta calculadora trabalha apenas com a modalidade <strong>carga fracionada</strong> da Carvalima. Consultas de lotação devem ser tratadas diretamente com a transportadora.
                 </div>
             </div>
 
@@ -929,30 +850,18 @@
                         <span class="tooltip" data-tooltip="Local de coleta da mercadoria">?</span>
                     </label>
                     <select class="form-control" id="origem">
-                        <option value="ITAJAÍ/SC">ITAJAÍ/SC</option>
+                        <option value="SÃO PAULO/SP">SÃO PAULO/SP</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>
-                        🎯 Destino
-                        <span class="tooltip" data-tooltip="Local de entrega da mercadoria. Prazo varia conforme destino">?</span>
+                        🎯 Faixa de KM (Destino)
+                        <span class="tooltip" data-tooltip="Selecione a faixa de quilometragem do destino conforme tabela Carvalima">?</span>
                     </label>
                     <select class="form-control" id="destino">
-                        <option value="">Selecione o destino</option>
+                        <option value="">Selecione a faixa</option>
                     </select>
-                </div>
-            </div>
-
-            <!-- Campo de Valor da NF para Carga Lotação -->
-            <div class="form-grid" id="valorNotaLotacao" style="display: none;">
-                <div class="form-group">
-                    <label>
-                        💰 Valor da Nota Fiscal (R$)
-                        <span class="tooltip" data-tooltip="Valor usado para calcular GRISS (0,1%) e ADV (0,15%) na lotação">?</span>
-                    </label>
-                    <input type="number" class="form-control" id="valorNotaLotacaoInput" placeholder="5000" step="0.01" min="0" value="5000">
-                    <div class="peso-info">Valor da nota fiscal para cálculo de GRISS e ADV na lotação</div>
                 </div>
             </div>
 
@@ -1044,34 +953,31 @@
             </div>
             
             <div class="methodology-section">
-                <h3>📋 Tabela de Referência (MAXLOG)</h3>
-                <p>Todos os cálculos são baseados na <strong>tabela oficial da MAXLOG Transportes</strong> fornecida em agosto de 2025. Os valores são exatos conforme o documento.</p>
+                <h3>📋 Tabela de Referência (Carvalima)</h3>
+                <p>Todos os cálculos são baseados na <strong>tabela padrão de referência da Carvalima Logística</strong> emitida em maio de 2025 para embarques com origem São Paulo/SP. Os valores foram transcritos exatamente como constam no documento.</p>
             </div>
 
             <div id="fracionadaMethodology" class="methodology-section" style="display: none;">
-            </div>
-
-            <div id="lotacaoMethodology" class="methodology-section" style="display: none;">
             </div>
 
             <div class="warning-box">
                 <h4>⚠️ Importante - Por que pode dar diferente?</h4>
                 <p><strong>Este cálculo segue EXATAMENTE a tabela da transportadora</strong>, mas podem haver diferenças na cotação real por:</p>
                 <ul>
-                    <li><strong>Descontos comerciais:</strong> Clientes com volume podem ter até 10% de desconto</li>
-                    <li><strong>Negociações específicas:</strong> Valores podem ser ajustados caso a caso</li>
+                    <li><strong>Agendamentos:</strong> Entregas com horário marcado adicionam R$ 80,00 por viagem</li>
+                    <li><strong>Áreas de risco:</strong> Podem exigir taxas extras sob consulta direta</li>
                     <li><strong>ICMS:</strong> Imposto estadual (12% a 18%) NÃO está incluído aqui</li>
-                    <li><strong>Destinos específicos:</strong> Algumas cidades podem ter tarifas diferenciadas</li>
-                    <li><strong>Cubagem:</strong> Cargas muito volumosas (regra 300kg/m³) podem alterar o cálculo</li>
+                    <li><strong>Cubagem:</strong> Cargas volumosas (regra 300kg/m³) podem alterar o cálculo</li>
+                    <li><strong>Negociação comercial:</strong> Clientes regulares podem obter valores diferenciados</li>
                 </ul>
             </div>
 
             <div class="methodology-section">
                 <h3>📄 Referências</h3>
-                <p>• <strong>Documento:</strong> Tabela de Preços MAXLOG Transportes</p>
-                <p>• <strong>Data:</strong> Agosto 2025</p>
+                <p>• <strong>Documento:</strong> Proposta Comercial – Tabela Padrão Carvalima</p>
+                <p>• <strong>Data:</strong> 13/05/2025</p>
                 <p>• <strong>Cliente:</strong> USIQUÍMICA DO BRASIL LTDA</p>
-                <p>• <strong>Origem:</strong> Itajaí/SC</p>
+                <p>• <strong>Origem:</strong> São Paulo/SP</p>
             </div>
         </div>
     </div>
@@ -1079,34 +985,23 @@
     <script>
         var tabelaFretes = {
             fracionadas: [
-                { prazo: "1 a 3 dias úteis", origem: "ITAJAÍ/SC", destino: "SC LITORAL NORTE", precoAte100: 65.90, excedente: 0.50, pedagio: 3.50, adv: 0.003 },
-                { prazo: "3 a 5 dias úteis", origem: "ITAJAÍ/SC", destino: "SC LITORAL SUL", precoAte100: 85.90, excedente: 0.75, pedagio: 3.50, adv: 0.003 },
-                { prazo: "4 a 7 dias úteis", origem: "ITAJAÍ/SC", destino: "SC INTERIOR", precoAte100: 125.90, excedente: 1.05, pedagio: 3.50, adv: 0.003 },
-                { prazo: "2 a 3 dias úteis", origem: "ITAJAÍ/SC", destino: "RS CAPITAL", precoAte100: 95.90, excedente: 0.65, pedagio: 3.50, adv: 0.003 },
-                { prazo: "5 a 7 dias úteis", origem: "ITAJAÍ/SC", destino: "RS SERRA / CAXIAS DO SUL", precoAte100: 135.90, excedente: 0.90, pedagio: 3.50, adv: 0.003 },
-                { prazo: "7 a 9 dias úteis", origem: "ITAJAÍ/SC", destino: "RS INTERIOR", precoAte100: 155.90, excedente: 1.25, pedagio: 3.50, adv: 0.003 },
-                { prazo: "1 a 3 dias úteis", origem: "ITAJAÍ/SC", destino: "PR CAPITAL", precoAte100: 75.00, excedente: 0.60, pedagio: 3.50, adv: 0.003 },
-                { prazo: "7 a 9 dias úteis", origem: "ITAJAÍ/SC", destino: "PR INTERIOR", precoAte100: 155.90, excedente: 1.25, pedagio: 3.50, adv: 0.003 },
-                { prazo: "2 a 3 dias úteis", origem: "ITAJAÍ/SC", destino: "SP CAPITAL", precoAte100: 95.90, excedente: 0.65, pedagio: 3.50, adv: 0.003 },
-                { prazo: "2 a 4 dias úteis", origem: "ITAJAÍ/SC", destino: "SP INTERIOR 1 (CAMPINAS)", precoAte100: 135.90, excedente: 0.98, pedagio: 3.50, adv: 0.003 },
-                { prazo: "3 a 5 dias úteis", origem: "ITAJAÍ/SC", destino: "MG CAPITAL", precoAte100: 145.90, excedente: 1.15, pedagio: 3.50, adv: 0.003 }
+                { origem: "SÃO PAULO/SP", destino: "0 a 300 km", faixaKm: "0 a 300 km", freteMinimo: 145.00, freteAte300: 145.72, excedente: 0.75, pedagioValor: 0, gris: 0.003, adv: 0.003, prazo: "Sob consulta" },
+                { origem: "SÃO PAULO/SP", destino: "301 a 600 km", faixaKm: "301 a 600 km", freteMinimo: 175.00, freteAte300: 175.72, excedente: 0.80, pedagioValor: 0, gris: 0.003, adv: 0.003, prazo: "Sob consulta" },
+                { origem: "SÃO PAULO/SP", destino: "601 a 900 km", faixaKm: "601 a 900 km", freteMinimo: 205.00, freteAte300: 205.72, excedente: 0.85, pedagioValor: 0, gris: 0.003, adv: 0.003, prazo: "Sob consulta" },
+                { origem: "SÃO PAULO/SP", destino: "901 a 1200 km", faixaKm: "901 a 1200 km", freteMinimo: 235.00, freteAte300: 235.72, excedente: 0.90, pedagioValor: 0, gris: 0.003, adv: 0.003, prazo: "Sob consulta" },
+                { origem: "SÃO PAULO/SP", destino: "1201 a 1500 km", faixaKm: "1201 a 1500 km", freteMinimo: 265.00, freteAte300: 265.72, excedente: 0.95, pedagioValor: 0, gris: 0.003, adv: 0.003, prazo: "Sob consulta" },
+                { origem: "SÃO PAULO/SP", destino: "Acima de 1500 km", faixaKm: "Acima de 1500 km", freteMinimo: 295.00, freteAte300: 295.72, excedente: 1.00, pedagioValor: 0, gris: 0.003, adv: 0.003, prazo: "Sob consulta" }
             ],
-            lotacao: [
-                { origem_destino: "Itajaí/SC x SP – Capital", carreta32: 6980, carreta25: 5990, truck13: 3900, griss: 0.001, adv: 0.0015, prazo: "24 horas" },
-                { origem_destino: "Itajaí/SC x SP – Campinas / Itu", carreta32: 7480, carreta25: 6500, truck13: 4300, griss: 0.001, adv: 0.0015, prazo: "24 horas" }
-            ],
-            negroFumo: [
-                { prazo: "3 a 4 dias úteis", origem: "ITAJAÍ/SC", destino: "SP CAPITAL", precoKg: 0.70, pedagio: 3.50, freteMinimo: 195.90 },
-                { prazo: "4 a 5 dias úteis", origem: "ITAJAÍ/SC", destino: "SP INTERIOR 1 (CAMPINAS)", precoKg: 0.95, pedagio: 3.50, freteMinimo: 225.90 }
-            ]
+            negroFumo: []
         };
 
         var ultimoCalculoRealizado = {};
 
         var config = {
-            griss: 0.002,
+            griss: 0.003,
             despacho: 25.00,
-            pedagogioPorFracao: 3.50
+            pesoBase: 300,
+            fracaoPedagioKg: 300
         };
 
         var produtos = [];
@@ -1251,39 +1146,6 @@
         }
 
         function configurarEventos() {
-            document.querySelectorAll('.cargo-option').forEach(function(option) {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.cargo-option').forEach(function(opt) {
-                        opt.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                    
-                    var tipo = this.dataset.type;
-                    var produtosSection = document.getElementById('produtosSection');
-                    var lotacaoOptions = document.getElementById('lotacaoOptions');
-                    var valorNotaLotacao = document.getElementById('valorNotaLotacao');
-                    
-                    if (tipo === 'lotacao') {
-                        produtosSection.style.display = 'none';
-                        valorNotaLotacao.style.display = 'block';
-                        lotacaoOptions.classList.add('show');
-                    } else {
-                        produtosSection.style.display = 'block';
-                        valorNotaLotacao.style.display = 'none';
-                        lotacaoOptions.classList.remove('show');
-                    }
-                });
-            });
-
-            document.querySelectorAll('.vehicle-option').forEach(function(option) {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.vehicle-option').forEach(function(opt) {
-                        opt.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                });
-            });
-
             document.getElementById('origem').addEventListener('change', carregarDestinos);
         }
 
@@ -1347,7 +1209,6 @@
         }
 
         function calcularFrete() {
-            var tipoSelecionado = document.querySelector('.cargo-option.selected').dataset.type;
             var origem = document.getElementById('origem').value;
             var destino = document.getElementById('destino').value;
 
@@ -1356,11 +1217,7 @@
                 return;
             }
 
-            if (tipoSelecionado === 'fracionada') {
-                calcularFreteFracionadoMisto(origem, destino);
-            } else {
-                calcularFreteLotacao(origem, destino);
-            }
+            calcularFreteFracionadoMisto(origem, destino);
         }
 
         // Função para mapear destino da tabela normal para negro de fumo
@@ -1501,20 +1358,23 @@
             var valorNotaTotal = produtosNormais.reduce(function(total, p) { return total + (p.valorNota || 0); }, 0);
 
             // Cálculo como produto único
-            var freteBase = rota.precoAte100;
+            var basePeso = config.pesoBase;
+            var freteBase = Math.max(rota.freteMinimo || 0, rota.freteAte300 || 0);
             var pesoExcedente = 0;
             var valorExcedente = 0;
 
-            if (pesoTotal > 100) {
-                pesoExcedente = pesoTotal - 100;
-                valorExcedente = pesoExcedente * rota.excedente;
+            if (basePeso > 0 && pesoTotal > basePeso) {
+                pesoExcedente = pesoTotal - basePeso;
+                valorExcedente = pesoExcedente * (rota.excedente || 0);
             }
 
             var freteTotal = freteBase + valorExcedente;
-            var fracoesPedagio = Math.ceil(pesoTotal / 100);
-            var pedagio = fracoesPedagio * config.pedagogioPorFracao;
-            var griss = valorNotaTotal * config.griss;
-            var adv = valorNotaTotal * rota.adv;
+            var fracoesPedagio = (config.fracaoPedagioKg && rota.pedagioValor) ? Math.ceil(pesoTotal / config.fracaoPedagioKg) : 0;
+            var pedagio = rota.pedagioValor && fracoesPedagio > 0 ? fracoesPedagio * rota.pedagioValor : 0;
+            var grissPercent = (rota.gris != null ? rota.gris : config.griss);
+            var griss = valorNotaTotal * (grissPercent || 0);
+            var advPercent = rota.adv || 0;
+            var adv = valorNotaTotal * advPercent;
             var totalGeral = freteTotal + pedagio + griss + adv + config.despacho;
 
             // Distribuir pelos produtos
@@ -1623,63 +1483,6 @@
                 produtos: resultados,
                 totalFrete: totalGeral
             };
-        }
-
-        function calcularFreteLotacao(origem, destino) {
-            var veiculoSelecionado = document.querySelector('.vehicle-option.selected').dataset.vehicle;
-            var valorNotaTotal = parseFloat(document.getElementById('valorNotaLotacaoInput').value) || 0;
-            
-            var rota = tabelaFretes.lotacao.find(function(item) {
-                return item.origem_destino.indexOf('SP') > -1;
-            });
-
-            if (!rota) {
-                alert('Rota de lotação não encontrada na tabela de preços!');
-                return;
-            }
-
-            var precoVeiculo = rota[veiculoSelecionado];
-            var grissTotal = valorNotaTotal * rota.griss;
-            var advTotal = valorNotaTotal * rota.adv;
-            var totalGeral = precoVeiculo + grissTotal + advTotal;
-
-            var pesoEstimado = {
-                carreta32: 32000,
-                carreta25: 25000,
-                truck13: 13000
-            };
-
-            var peso = pesoEstimado[veiculoSelecionado];
-            var valorOmega = totalGeral / (peso / 1000);
-
-            var detalhes = [
-                { desc: 'Frete ' + veiculoSelecionado.toUpperCase(), valor: precoVeiculo, info: 'R$ ' + (precoVeiculo/peso).toFixed(4) + '/kg' },
-                { desc: 'GRISS', valor: grissTotal, info: 'R$ ' + (grissTotal/peso).toFixed(6) + '/kg' },
-                { desc: 'ADV', valor: advTotal, info: 'R$ ' + (advTotal/peso).toFixed(6) + '/kg' }
-            ];
-
-            exibirResultado({
-                rota: origem + ' → ' + destino,
-                prazo: rota.prazo,
-                lotacao: {
-                    veiculo: veiculoSelecionado,
-                    peso: peso,
-                    precoVeiculo: precoVeiculo,
-                    griss: grissTotal,
-                    adv: advTotal,
-                    total: totalGeral,
-                    valorOmega: valorOmega
-                },
-                totais: {
-                    valorNota: valorNotaTotal,
-                    frete: totalGeral,
-                    precoVeiculo: precoVeiculo,
-                    griss: grissTotal,
-                    adv: advTotal
-                },
-                detalhes: detalhes,
-                tipoCalculo: 'lotacao'
-            });
         }
 
         function exibirResultado(dados) {
@@ -1844,82 +1647,6 @@
 
                 calcSteps.innerHTML = stepsHTML;
 
-            } else if (dados.tipoCalculo === 'lotacao') {
-                // Exibir resultado da lotação
-                var resultHTML = '';
-                resultHTML += '<div class="result-item">';
-                resultHTML += '<div class="label">Peso da Carga</div>';
-                resultHTML += '<div class="value">Lotação completa (' + (dados.lotacao.peso/1000) + 't)</div>';
-                resultHTML += '</div>';
-                
-                resultHTML += '<div class="result-item">';
-                resultHTML += '<div class="label">Preço por Quilo</div>';
-                resultHTML += '<div class="value animatable">R$ ' + (dados.totais.frete/dados.lotacao.peso).toFixed(4) + '/kg</div>';
-                resultHTML += '</div>';
-                
-                resultHTML += '<div class="result-item">';
-                resultHTML += '<div class="label">Valor da Nota Fiscal</div>';
-                resultHTML += '<div class="value">R$ ' + dados.totais.valorNota.toFixed(2) + '</div>';
-                resultHTML += '</div>';
-                
-                resultHTML += '<div class="result-item">';
-                resultHTML += '<div class="label">Prazo de Entrega</div>';
-                resultHTML += '<div class="value">' + dados.prazo + '</div>';
-                resultHTML += '</div>';
-                
-                resultHTML += '<div class="result-item omega-highlight">';
-                resultHTML += '<div class="label">Valor do Frete Ômega</div>';
-                resultHTML += '<div class="value animatable">R$ ' + dados.lotacao.valorOmega.toFixed(2) + '/ton</div>';
-                resultHTML += '</div>';
-
-                resultHTML += '<div class="result-item">';
-                resultHTML += '<div class="label">Frete Base</div>';
-                resultHTML += '<div class="value animatable">R$ ' + dados.lotacao.precoVeiculo.toFixed(2) + '</div>';
-                resultHTML += '</div>';
-
-                produtosResult.innerHTML = '<div class="produto-result-item"><div class="produto-result-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">' + resultHTML + '</div></div>';
-
-                // Resumo geral para lotação
-                var summaryHTML = '';
-                summaryHTML += '<div class="summary-item">';
-                summaryHTML += '<div class="summary-value">' + dados.lotacao.veiculo.toUpperCase() + '</div>';
-                summaryHTML += '<div>Tipo de Veículo</div>';
-                summaryHTML += '</div>';
-                summaryHTML += '<div class="summary-item">';
-                summaryHTML += '<div class="summary-value">' + (dados.lotacao.peso/1000) + 't</div>';
-                summaryHTML += '<div>Capacidade</div>';
-                summaryHTML += '</div>';
-                summaryHTML += '<div class="summary-item">';
-                summaryHTML += '<div class="summary-value">R$ ' + dados.totais.valorNota.toFixed(2) + '</div>';
-                summaryHTML += '<div>Valor da NF</div>';
-                summaryHTML += '</div>';
-                summaryHTML += '<div class="summary-item">';
-                summaryHTML += '<div class="summary-value">R$ ' + (dados.totais.frete/dados.lotacao.peso).toFixed(4) + '</div>';
-                summaryHTML += '<div>Preço/kg</div>';
-                summaryHTML += '</div>';
-
-                summaryGrid.innerHTML = summaryHTML;
-
-                // Detalhamento do cálculo para lotação
-                var stepsHTML = '';
-                dados.detalhes.forEach(function(item) {
-                    var infoKg = item.info ? ' <span style="color: #6b7280; font-size: 0.85em;">(' + item.info + ')</span>' : '';
-                    stepsHTML += '<div class="calc-step">';
-                    stepsHTML += '<span>' + item.desc + infoKg + '</span>';
-                    stepsHTML += '<span class="animatable">R$ ' + item.valor.toFixed(2) + '</span>';
-                    stepsHTML += '</div>';
-                });
-                
-                stepsHTML += '<div class="calc-step">';
-                stepsHTML += '<span><strong>TOTAL GERAL <span style="color: #6b7280; font-weight: normal;">(R$ ' + (dados.totais.frete/dados.lotacao.peso).toFixed(4) + '/kg)</span></strong></span>';
-                stepsHTML += '<span class="animatable"><strong>R$ ' + dados.totais.frete.toFixed(2) + '</strong></span>';
-                stepsHTML += '</div>';
-                stepsHTML += '<div class="calc-step" style="background: #fef3c7; padding: 10px; border-radius: 6px; border: 1px solid #fbbf24;">';
-                stepsHTML += '<span><strong>VALOR FRETE ÔMEGA <span style="color: #92400e; font-weight: normal;">(para inserir no sistema)</span></strong></span>';
-                stepsHTML += '<span class="animatable"><strong style="color: #d97706;">R$ ' + dados.lotacao.valorOmega.toFixed(2) + '/ton</strong></span>';
-                stepsHTML += '</div>';
-
-                calcSteps.innerHTML = stepsHTML;
             }
 
             // Adicionar botão "Como fiz o cálculo"
@@ -1938,26 +1665,26 @@
             observacoes.className = 'calculation-details';
             
             var observacoesHTML = '';
-            observacoesHTML += '<h4 style="color: #dc2626;">Importante - Possíveis Diferenças na Cotação</h4>';
+            observacoesHTML += '<h4 style="color: #dc2626;">Condições Comerciais Carvalima</h4>';
             observacoesHTML += '<div style="font-size: 0.9rem; color: #4b5563; line-height: 1.6;">';
-            observacoesHTML += '<p><strong>Este valor pode divergir da cotação final por:</strong></p>';
+            observacoesHTML += '<p><strong>Principais observações da proposta:</strong></p>';
             observacoesHTML += '<div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px; padding: 12px; margin: 10px 0;">';
-            observacoesHTML += '<strong style="color: #92400e;">Diferenças Comuns Observadas:</strong>';
+            observacoesHTML += '<strong style="color: #92400e;">Taxas e serviços adicionais</strong>';
             observacoesHTML += '<ul style="margin: 8px 0; padding-left: 20px; color: #92400e;">';
-            observacoesHTML += '<li><strong>GRISS/ADV:</strong> Podem ser calculados sobre valor menor (só frete vs. valor NF)</li>';
-            observacoesHTML += '<li><strong>Desconto comercial:</strong> Transportadoras aplicam até 10% de desconto</li>';
-            observacoesHTML += '<li><strong>Destino específico:</strong> Americana pode ter tabela diferente de Campinas</li>';
-            observacoesHTML += '<li><strong>Negociação:</strong> Valores para clientes regulares podem ser menores</li>';
+            observacoesHTML += '<li><strong>Agendamento de entrega:</strong> R$ 80,00 quando obrigatório</li>';
+            observacoesHTML += '<li><strong>Devolução de comprovante:</strong> R$ 25,00</li>';
+            observacoesHTML += '<li><strong>Devolução de mercadoria:</strong> R$ 150,00</li>';
+            observacoesHTML += '<li><strong>Tentativa de entrega extra (TDE):</strong> R$ 250,00</li>';
+            observacoesHTML += '<li><strong>Despacho:</strong> R$ 25,00 (taxa fixa já considerada no cálculo)</li>';
             observacoesHTML += '</ul>';
             observacoesHTML += '</div>';
             observacoesHTML += '<ul style="margin: 10px 0; padding-left: 20px;">';
-            observacoesHTML += '<li><strong>ICMS:</strong> Imposto estadual (12% a 18%) conforme legislação - NÃO INCLUÍDO</li>';
-            observacoesHTML += '<li><strong>Cubagem:</strong> Se carga volumosa, cobra-se por volume (300kg/m³)</li>';
-            observacoesHTML += '<li><strong>Paletização:</strong> R$ 55,00 por palete (se necessário)</li>';
-            observacoesHTML += '<li><strong>TDE:</strong> R$ 250,00 (taxa de entrega em casos específicos)</li>';
-            observacoesHTML += '<li><strong>Taxas regionais:</strong> Podem variar por estado/cidade</li>';
+            observacoesHTML += '<li><strong>GRISS e ADV:</strong> 0,30% cada, calculados sobre o valor da nota fiscal</li>';
+            observacoesHTML += '<li><strong>Área de risco:</strong> valores sob consulta direta com a transportadora</li>';
+            observacoesHTML += '<li><strong>Prazo de pagamento:</strong> 28 dias (conforme proposta)</li>';
+            observacoesHTML += '<li><strong>Validade da tabela:</strong> 15/05/2025</li>';
             observacoesHTML += '</ul>';
-            observacoesHTML += '<p style="color: #dc2626; font-weight: 600;">Sempre confirme o detalhamento com a transportadora!</p>';
+            observacoesHTML += '<p style="color: #dc2626; font-weight: 600;">Confirme agendamentos, áreas de risco e negociações especiais diretamente com a Carvalima.</p>';
             observacoesHTML += '</div>';
             
             observacoes.innerHTML = observacoesHTML;
@@ -2107,19 +1834,6 @@
                     labels.push('Despacho');
                     values.push(totais.despacho);
                 }
-            } else if (dados.tipoCalculo === 'lotacao' && dados.lotacao) {
-                if (dados.lotacao.precoVeiculo > 0) {
-                    labels.push('Frete Veículo');
-                    values.push(dados.lotacao.precoVeiculo);
-                }
-                if (dados.lotacao.griss > 0) {
-                    labels.push('GRISS');
-                    values.push(dados.lotacao.griss);
-                }
-                if (dados.lotacao.adv > 0) {
-                    labels.push('ADV');
-                    values.push(dados.lotacao.adv);
-                }
             }
             
             // Se não temos dados suficientes, não criar o gráfico
@@ -2249,7 +1963,7 @@
                 
                 doc.setFontSize(12);
                 doc.setFont("helvetica", "normal");
-                doc.text('MAXLOG Transportes', pageWidth/2, 25, { align: 'center' });
+                doc.text('Carvalima Logística', pageWidth/2, 25, { align: 'center' });
                 
                 const agora = new Date();
                 const dataFormatada = agora.toLocaleDateString('pt-BR') + ' as ' + agora.toLocaleTimeString('pt-BR');
@@ -2270,9 +1984,9 @@
                 yPos += 6;
                 doc.text(limpar('Prazo de entrega: ' + dados.prazo), margin, yPos);
                 yPos += 6;
-                var tipoTexto = dados.tipoCalculo === 'fracionada' ? 'Carga Fracionada' : 
-                              dados.tipoCalculo === 'negro-fumo' ? 'Carga Fracionada - Negro de Fumo' : 
-                              dados.tipoCalculo === 'misto' ? 'Carga Fracionada - Produtos Mistos' : 'Carga Lotacao';
+                var tipoTexto = dados.tipoCalculo === 'fracionada' ? 'Carga Fracionada' :
+                              dados.tipoCalculo === 'negro-fumo' ? 'Carga Fracionada - Negro de Fumo' :
+                              dados.tipoCalculo === 'misto' ? 'Carga Fracionada - Produtos Mistos' : 'Carga Fracionada';
                 doc.text(limpar('Tipo: ' + tipoTexto), margin, yPos);
                 yPos += 15;
 
@@ -2374,54 +2088,6 @@
                     doc.text(limpar('Preco medio/kg: R$ ' + dados.totais.precoMedioKg.toFixed(4)), margin + 105, yPos);
                     yPos += 20;
 
-                } else {
-                    // === COTAÇÃO LOTAÇÃO ===
-                    doc.setFontSize(14);
-                    doc.setFont("helvetica", "bold");
-                    doc.text(limpar('DETALHAMENTO DA LOTACAO'), margin, yPos);
-                    yPos += 12;
-
-                    const veiculo = dados.lotacao.veiculo.toUpperCase();
-                    const peso = dados.lotacao.peso / 1000;
-                    
-                    doc.setFillColor(240, 240, 240);
-                    doc.rect(margin, yPos, contentWidth, 60, 'F');
-                    doc.setDrawColor(0, 0, 163);
-                    doc.rect(margin, yPos, contentWidth, 60);
-
-                    // Título - espaçamento uniforme do topo
-                    doc.setFontSize(12);
-                    doc.setFont("helvetica", "bold");
-                    doc.setTextColor(0, 0, 163);
-                    doc.text(limpar('Veiculo: ' + veiculo), margin + 5, yPos + 8);
-                    doc.text(limpar('Capacidade: ' + peso + ' toneladas'), margin + 105, yPos + 8);
-                    
-                    // Informações organizadas com espaçamento uniforme
-                    doc.setFontSize(10);
-                    doc.setFont("helvetica", "normal");
-                    doc.setTextColor(0, 0, 0);
-                    doc.text(limpar('Valor da NF: R$ ' + dados.totais.valorNota.toFixed(2)), margin + 5, yPos + 18);
-                    doc.text(limpar('Preco/kg: R$ ' + (dados.totais.frete/dados.lotacao.peso).toFixed(4)), margin + 105, yPos + 18);
-                    doc.text(limpar('Frete veiculo: R$ ' + dados.totais.precoVeiculo.toFixed(2)), margin + 5, yPos + 26);
-                    doc.text(limpar('GRISS + ADV: R$ ' + (dados.totais.griss + dados.totais.adv).toFixed(2)), margin + 105, yPos + 26);
-                    
-                    // Valor Ômega - centralizado verticalmente com espaçamento uniforme
-                    doc.setFillColor(204, 33, 204);
-                    doc.rect(margin + 5, yPos + 32, 110, 10, 'F');
-                    doc.setTextColor(255, 255, 255);
-                    doc.setFont("helvetica", "bold");
-                    doc.setFontSize(10);
-                    doc.text(limpar('VALOR OMEGA: R$ ' + dados.lotacao.valorOmega.toFixed(2) + '/ton'), margin + 8, yPos + 39);
-                    
-                    // Resetar cor
-                    doc.setTextColor(0, 0, 0);
-                    
-                    // Total - espaçamento uniforme da base
-                    doc.setFont("helvetica", "bold");
-                    doc.setFontSize(11);
-                    doc.text(limpar('TOTAL: R$ ' + dados.totais.frete.toFixed(2)), margin + 5, yPos + 52);
-
-                    yPos += 70;
                 }
 
                 // TOTAL FINAL - Melhorado com informação do ICMS
@@ -2449,7 +2115,7 @@
                 doc.setFont("helvetica", "normal");
                 const observacoes = [
                     'ICMS não incluso - será adicionado conforme legislacao estadual (12% a 18%)',
-                    'Valores baseados na tabela oficial MAXLOG de Agosto/2025',
+                    'Valores baseados na tabela oficial Carvalima (maio/2025)',
                     'Possíveis diferenças na cotação final por descontos comerciais',
                     'Cubagem aplicada quando necessário (regra 300kg/m3)',
                     'Prazo calculado em dias úteis (segunda a sexta-feira)',
@@ -2476,16 +2142,16 @@
                 yPos = pageHeight - 25;
                 doc.setFontSize(8);
                 doc.setFont("helvetica", "italic");
-                doc.text('Essa calculadora de frete é direcionada somente a transportadora MAXLOG', pageWidth/2, yPos, { align: 'center' });
+                doc.text('Essa calculadora de frete é direcionada somente à transportadora Carvalima', pageWidth/2, yPos, { align: 'center' });
                 yPos += 4;
                 doc.text(limpar('Documento gerado automaticamente pela Calculadora de Frete Usiquimica'), pageWidth/2, yPos, { align: 'center' });
 
                 // Gerar nome do arquivo
                 const dataArquivo = agora.toLocaleDateString('pt-BR').replace(/\//g, '-');
                 const horaArquivo = agora.toLocaleTimeString('pt-BR').replace(/:/g, '-').replace(/\s/g, '');
-                const tipoFrete = dados.tipoCalculo === 'fracionada' ? 'Fracionada' : 
-                                dados.tipoCalculo === 'negro-fumo' ? 'NegroFumo' : 
-                                dados.tipoCalculo === 'misto' ? 'Misto' : 'Lotacao';
+                const tipoFrete = dados.tipoCalculo === 'fracionada' ? 'Fracionada' :
+                                dados.tipoCalculo === 'negro-fumo' ? 'NegroFumo' :
+                                dados.tipoCalculo === 'misto' ? 'Misto' : 'Fracionada';
                 const destinoLimpo = limpar(dados.rota.split(' →')[1] || 'Destino').replace(/[^a-zA-Z0-9]/g, '');
                 
                 const nomeArquivo = `Cotacao_${tipoFrete}_${destinoLimpo}_${dataArquivo}_${horaArquivo}.pdf`;
@@ -2505,14 +2171,6 @@
             produtos = [];
             contadorProduto = 0;
             document.getElementById('resultContainer').classList.remove('show');
-            document.getElementById('valorNotaLotacaoInput').value = '5000';
-            document.querySelectorAll('.cargo-option').forEach(function(opt) {
-                opt.classList.remove('selected');
-            });
-            document.querySelector('.cargo-option[data-type="fracionada"]').classList.add('selected');
-            document.getElementById('produtosSection').style.display = 'block';
-            document.getElementById('valorNotaLotacao').style.display = 'none';
-            document.getElementById('lotacaoOptions').classList.remove('show');
             document.getElementById('timelineContainer').style.display = 'none';
             document.getElementById('chartContainer').style.display = 'none';
             adicionarProduto();
@@ -2522,20 +2180,14 @@
             console.log('mostrarMetodologia chamada com:', tipoCalculo);
             var modal = document.getElementById('methodologyModal');
             var fracionadaMethod = document.getElementById('fracionadaMethodology');
-            var lotacaoMethod = document.getElementById('lotacaoMethodology');
 
             // Limpa metodologias anteriores
             fracionadaMethod.style.display = 'none';
-            lotacaoMethod.style.display = 'none';
             fracionadaMethod.innerHTML = '';
-            lotacaoMethod.innerHTML = '';
 
             if (tipoCalculo === 'fracionada' || tipoCalculo === 'negro-fumo' || tipoCalculo === 'misto') {
                 atualizarMetodologiaFracionada();
                 fracionadaMethod.style.display = 'block';
-            } else if (tipoCalculo === 'lotacao') {
-                atualizarMetodologiaLotacao();
-                lotacaoMethod.style.display = 'block';
             }
 
             modal.classList.add('show');
@@ -2581,7 +2233,7 @@
             // PASSO A PASSO DETALHADO PARA CADA PRODUTO
             if (dados.produtos && dados.produtos.length > 0) {
                 html += '<div class="warning-box">';
-                html += '<h4>🚛 TAXAS DO TRANSPORTE MAXLOG</h4>';
+                html += '<h4>🚛 TAXAS DO TRANSPORTE CARVALIMA</h4>';
                 html += '<p><strong>Por que existem tantas taxas?</strong> O frete não é só o valor do transporte. Inclui:</p>';
                 html += '<ul style="margin-left: 20px;">';
                 html += '<li><strong>Frete base:</strong> Custo do transporte propriamente dito</li>';
@@ -2604,7 +2256,9 @@
                     
                     if (isNF) {
                         // CÁLCULO NEGRO DE FUMO
-                        var destinoNF = mapearDestinoNegroFumo(dados.rota.split(' →')[1]);
+                        var partesRotaExplicacao = dados.rota.split(' →');
+                        var destinoAtualExplicacao = partesRotaExplicacao[1] || '';
+                        var destinoNF = mapearDestinoNegroFumo(destinoAtualExplicacao);
                         var rotaNF = destinoNF ? tabelaFretes.negroFumo.find(function(item) {
                             return item.destino === destinoNF;
                         }) : null;
@@ -2652,10 +2306,10 @@
                                 html += '<strong>Cálculo:</strong> ' + fracoesPedagio + ' frações × R$ ' + rotaNF.pedagio.toFixed(2) + ' = R$ ' + produto.pedagio.toFixed(2);
                                 html += '</div>';
                                 
-                                html += '<h4 style="color: #00005e; margin-top: 15px;">🏛️ GRISS (0,2%)</h4>';
+                                html += '<h4 style="color: #00005e; margin-top: 15px;">🏛️ GRISS (0,3%)</h4>';
                                 html += '<p><strong>O que é:</strong> Seguro obrigatório de responsabilidade civil.</p>';
                                 html += '<div class="formula-box">';
-                                html += '<strong>Cálculo:</strong> R$ ' + produto.produto.valorNota.toFixed(2) + ' × 0,2% = R$ ' + produto.griss.toFixed(2);
+                                html += '<strong>Cálculo:</strong> R$ ' + produto.produto.valorNota.toFixed(2) + ' × 0,3% = R$ ' + produto.griss.toFixed(2);
                                 html += '</div>';
                                 
                                 html += '<h4 style="color: #00005e; margin-top: 15px;">📋 ADV (0,3%)</h4>';
@@ -2673,60 +2327,66 @@
                         }
                     } else {
                         // CÁLCULO PRODUTO NORMAL
+                        var origemRota = partesRotaExplicacao[0];
+                        var destinoRota = partesRotaExplicacao[1];
                         var rotaNormal = tabelaFretes.fracionadas.find(function(item) {
-                            return item.origem === 'ITAJAÍ/SC' && item.destino === dados.rota.split(' →')[1];
+                            return item.origem === origemRota && item.destino === destinoRota;
                         });
                         
                         if (rotaNormal) {
+                            var basePeso = config.pesoBase;
+                            var baseDescricao = basePeso + 'kg';
+                            var grisPercentual = ((rotaNormal.gris != null ? rotaNormal.gris : config.griss) * 100).toFixed(2);
+                            var advPercentual = (rotaNormal.adv * 100).toFixed(2);
+
                             html += '<div class="formula-box">';
                             html += '<strong>PASSO 1 - FRETE BASE:</strong><br>';
-                            html += 'Até 100kg: R$ ' + rotaNormal.precoAte100.toFixed(2) + '<br>';
+                            html += 'Frete mínimo: R$ ' + rotaNormal.freteMinimo.toFixed(2) + '<br>';
+                            html += 'Até ' + baseDescricao + ': R$ ' + rotaNormal.freteAte300.toFixed(2) + '<br>';
                             html += 'Peso do produto: ' + produto.produto.peso + 'kg<br>';
-                            
-                            if (produto.produto.peso <= 100) {
-                                html += 'Como é ≤ 100kg, frete base = R$ ' + produto.freteBase.toFixed(2);
+
+                            if (produto.produto.peso <= basePeso) {
+                                html += 'Como é ≤ ' + baseDescricao + ', aplica-se R$ ' + produto.freteBase.toFixed(2);
                             } else {
-                                var pesoExcedente = produto.produto.peso - 100;
-                                html += 'Excedente: ' + pesoExcedente.toFixed(1) + 'kg × R$ ' + rotaNormal.excedente.toFixed(2) + '/kg = R$ ' + produto.freteExcedente.toFixed(2) + '<br>';
-                                html += 'Frete base: R$ ' + rotaNormal.precoAte100.toFixed(2) + ' + R$ ' + produto.freteExcedente.toFixed(2) + ' = R$ ' + produto.freteBase.toFixed(2);
+                                var pesoExcedenteProduto = produto.produto.peso - basePeso;
+                                html += 'Excedente: ' + pesoExcedenteProduto.toFixed(1) + 'kg × R$ ' + rotaNormal.excedente.toFixed(2) + '/kg = R$ ' + produto.freteExcedente.toFixed(2) + '<br>';
+                                html += 'Frete base: R$ ' + rotaNormal.freteAte300.toFixed(2) + ' + R$ ' + produto.freteExcedente.toFixed(2) + ' = R$ ' + produto.freteBase.toFixed(2);
                             }
                             html += '</div>';
-                            
-                            var fracoesPedagio = Math.ceil(produto.produto.peso / 100);
+
                             html += '<p><strong>PASSO 2 - TAXAS OBRIGATÓRIAS:</strong></p>';
-                            
+
                             html += '<h4 style="color: #0000A3; margin-top: 15px;">🛣️ PEDÁGIO</h4>';
-                            html += '<p><strong>O que é:</strong> Taxa para custear o uso de rodovias pedagiadas durante o transporte.</p>';
-                            html += '<p><strong>Como é calculado:</strong> Por frações de 100kg (sempre arredonda para cima).</p>';
+                            if (rotaNormal.pedagioValor > 0) {
+                                var fracoesPedagioNovo = Math.ceil(produto.produto.peso / config.fracaoPedagioKg);
+                                html += '<p><strong>O que é:</strong> Taxa para custear o uso de rodovias pedagiadas durante o transporte.</p>';
+                                html += '<div class="formula-box">';
+                                html += '<strong>Cálculo:</strong> ' + fracoesPedagioNovo + ' frações × R$ ' + rotaNormal.pedagioValor.toFixed(2) + ' = R$ ' + produto.pedagio.toFixed(2);
+                                html += '</div>';
+                            } else {
+                                html += '<p>Isento conforme tabela Carvalima (0,00%).</p>';
+                            }
+
+                            html += '<h4 style="color: #0000A3; margin-top: 15px;">🏛️ GRISS (' + grisPercentual + '%)</h4>';
+                            html += '<p><strong>O que é:</strong> Gerenciamento de Risco do Seguro do Transportador.</p>';
+                            html += '<p><strong>Base de cálculo:</strong> valor da Nota Fiscal.</p>';
                             html += '<div class="formula-box">';
-                            html += '<strong>Cálculo:</strong> ' + fracoesPedagio + ' frações × R$ 3,50 = R$ ' + produto.pedagio.toFixed(2) + '<br>';
-                            html += '<strong>Frações:</strong> ' + produto.produto.peso + 'kg ÷ 100 = ' + (produto.produto.peso/100).toFixed(1) + ' → ' + fracoesPedagio + ' frações';
+                            html += '<strong>Cálculo:</strong> R$ ' + produto.produto.valorNota.toFixed(2) + ' × ' + grisPercentual + '% = R$ ' + produto.griss.toFixed(2);
                             html += '</div>';
-                            
-                            html += '<h4 style="color: #0000A3; margin-top: 15px;">🏛️ GRISS (0,2%)</h4>';
-                            html += '<p><strong>O que é:</strong> Gerenciamento de Risco do Seguro de Responsabilidade Civil do Transportador Rodoviário.</p>';
-                            html += '<p><strong>Finalidade:</strong> Cobre seguro obrigatório para indenizar danos à carga durante o transporte.</p>';
-                            html += '<p><strong>Base de cálculo:</strong> Sempre sobre o valor da Nota Fiscal.</p>';
-                            html += '<div class="formula-box">';
-                            html += '<strong>Cálculo:</strong> R$ ' + produto.produto.valorNota.toFixed(2) + ' × 0,2% = R$ ' + produto.griss.toFixed(2);
-                            html += '</div>';
-                            
-                            html += '<h4 style="color: #0000A3; margin-top: 15px;">📋 ADV (0,3%)</h4>';
+
+                            html += '<h4 style="color: #0000A3; margin-top: 15px;">📋 ADV (' + advPercentual + '%)</h4>';
                             html += '<p><strong>O que é:</strong> Taxa de Administração de Valores.</p>';
-                            html += '<p><strong>Finalidade:</strong> Cobre custos administrativos relacionados ao processamento da carga e documentação.</p>';
-                            html += '<p><strong>Base de cálculo:</strong> Sempre sobre o valor da Nota Fiscal.</p>';
+                            html += '<p><strong>Base de cálculo:</strong> valor da Nota Fiscal.</p>';
                             html += '<div class="formula-box">';
-                            html += '<strong>Cálculo:</strong> R$ ' + produto.produto.valorNota.toFixed(2) + ' × 0,3% = R$ ' + produto.adv.toFixed(2);
+                            html += '<strong>Cálculo:</strong> R$ ' + produto.produto.valorNota.toFixed(2) + ' × ' + advPercentual + '% = R$ ' + produto.adv.toFixed(2);
                             html += '</div>';
-                            
+
                             html += '<h4 style="color: #0000A3; margin-top: 15px;">📦 DESPACHO (R$ 25,00)</h4>';
                             html += '<p><strong>O que é:</strong> Taxa fixa de operação logística.</p>';
-                            html += '<p><strong>O que cobre:</strong></p>';
                             html += '<ul style="margin-left: 20px;">';
-                            html += '<li>Emissão e processamento de documentos (CT-e, DACTE)</li>';
-                            html += '<li>Operação de carregamento/descarregamento</li>';
-                            html += '<li>Rastreamento e acompanhamento da carga</li>';
-                            html += '<li>Custos administrativos do despacho</li>';
+                            html += '<li>Emissão e controle documental (CT-e, DACTE)</li>';
+                            html += '<li>Processos operacionais de coleta/entrega</li>';
+                            html += '<li>Custos administrativos de expedição</li>';
                             html += '</ul>';
                             html += '<div class="formula-box">';
                             html += '<strong>Valor fixo:</strong> R$ ' + produto.despacho.toFixed(2);
@@ -2785,143 +2445,6 @@
             html += '</div>';
 
             document.getElementById('fracionadaMethodology').innerHTML = html;
-        }
-
-        function atualizarMetodologiaLotacao() {
-            console.log('atualizarMetodologiaLotacao chamada');
-            var dados = ultimoCalculoRealizado;
-            
-            if (!dados || !dados.lotacao) {
-                console.log('Dados de lotação não encontrados:', dados);
-                document.getElementById('lotacaoMethodology').innerHTML = '<p>Erro: dados do cálculo não encontrados. Faça um novo cálculo.</p>';
-                return;
-            }
-
-            var valorNota = dados.totais ? dados.totais.valorNota || 0 : 0;
-            var rota = dados.rota || '';
-            var totalGeral = dados.totais ? dados.totais.frete || 0 : 0;
-            var peso = dados.lotacao.peso || 32000;
-            var valorOmega = dados.lotacao.valorOmega || 0;
-            var griss = dados.totais ? dados.totais.griss || 0 : 0;
-            var adv = dados.totais ? dados.totais.adv || 0 : 0;
-            var valorVeiculo = dados.totais ? dados.totais.precoVeiculo || 0 : 0;
-            var precoKg = totalGeral / peso;
-            var pesoToneladas = peso / 1000;
-            var tipoVeiculo = dados.lotacao.veiculo ? dados.lotacao.veiculo.toUpperCase() : 'CARRETA32';
-
-            // Buscar dados da rota na tabela
-            var rotaLotacao = tabelaFretes.lotacao.find(function(item) {
-                return item.origem_destino.indexOf('SP') > -1; // Primeira rota disponível
-            });
-            
-            var grissPercent = rotaLotacao ? rotaLotacao.griss * 100 : 0.1;
-            var advPercent = rotaLotacao ? rotaLotacao.adv * 100 : 0.15;
-
-            var html = '<h3>🚚 Metodologia Completa - Carga Lotação Passo a Passo</h3>';
-            
-            html += '<div class="formula-box">';
-            html += '<strong>SEU CÁLCULO:</strong><br>';
-            html += '• Veículo: ' + tipoVeiculo + '<br>';
-            html += '• Rota: ' + rota + '<br>';
-            html += '• Valor NF: R$ ' + valorNota.toFixed(2) + '<br>';
-            html += '• Capacidade: ' + pesoToneladas + ' toneladas (' + peso + 'kg)';
-            html += '</div>';
-
-            html += '<h4>🔍 PASSO 1 - FRETE DO VEÍCULO</h4>';
-            html += '<p>Na lotação, o frete é um <strong>valor fixo por veículo</strong> conforme tabela da transportadora:</p>';
-            html += '<div class="formula-box">';
-            html += '<strong>Tabela MAXLOG - Lotação:</strong><br>';
-            html += '• Carreta 32 ton: R$ 6.980,00<br>';
-            html += '• Carreta 25 ton: R$ 5.990,00<br>';
-            html += '• Truck 13 ton: R$ 3.900,00<br><br>';
-            html += '<strong>Veículo selecionado:</strong> ' + tipoVeiculo + '<br>';
-            html += '<strong>Frete base:</strong> R$ ' + valorVeiculo.toFixed(2);
-            html += '</div>';
-
-            html += '<h4>📊 PASSO 2 - TAXAS OBRIGATÓRIAS</h4>';
-            html += '<p>Na lotação, aplicamos apenas duas taxas sobre o <strong>valor da nota fiscal</strong>:</p>';
-            
-            html += '<h4 style="color: #0000A3; margin-top: 15px;">🏛️ GRISS (' + grissPercent + '%) - Para Lotação</h4>';
-            html += '<p><strong>O que é:</strong> Gerenciamento de Risco do Seguro de Responsabilidade Civil do Transportador Rodoviário.</p>';
-            html += '<p><strong>Por que é menor na lotação?</strong> Para lotações, a taxa é reduzida (' + grissPercent + '% vs 0,2% fracionada) porque:</p>';
-            html += '<ul style="margin-left: 20px;">';
-            html += '<li>Menor risco operacional (uma única carga, um destino)</li>';
-            html += '<li>Menor manipulação da mercadoria</li>';
-            html += '<li>Transporte direto sem baldeações</li>';
-            html += '</ul>';
-            html += '<div class="formula-box">';
-            html += '<strong>Cálculo:</strong> R$ ' + valorNota.toFixed(2) + ' × ' + grissPercent + '% = R$ ' + griss.toFixed(2);
-            html += '</div>';
-            
-            html += '<h4 style="color: #0000A3; margin-top: 15px;">📋 ADV (' + advPercent + '%) - Para Lotação</h4>';
-            html += '<p><strong>O que é:</strong> Taxa de Administração de Valores.</p>';
-            html += '<p><strong>O que cobre na lotação:</strong></p>';
-            html += '<ul style="margin-left: 20px;">';
-            html += '<li>Processamento de documentação fiscal (CT-e, DACTE)</li>';
-            html += '<li>Acompanhamento logístico dedicado</li>';
-            html += '<li>Gestão de risco financeiro da operação</li>';
-            html += '<li>Custos administrativos específicos de lotação</li>';
-            html += '</ul>';
-            html += '<p><strong>Por que é maior que fracionada?</strong> (' + advPercent + '% vs 0,3%) Lotações envolvem valores maiores e requerem gestão administrativa mais complexa.</p>';
-            html += '<div class="formula-box">';
-            html += '<strong>Cálculo:</strong> R$ ' + valorNota.toFixed(2) + ' × ' + advPercent + '% = R$ ' + adv.toFixed(2) + '<br>';
-            html += '<strong>Total das taxas:</strong> R$ ' + (griss + adv).toFixed(2);
-            html += '</div>';
-
-            html += '<div class="warning-box">';
-            html += '<strong>💡 POR QUE NÃO TEM OUTRAS TAXAS?</strong><br>';
-            html += '• <strong>Pedágio:</strong> Já incluído no valor fixo do veículo<br>';
-            html += '• <strong>Despacho:</strong> Não aplicado em lotação<br>';
-            html += '• <strong>Excedente:</strong> Não existe (veículo completo)<br>';
-            html += '• Só cobramos o frete fixo + GRISS + ADV = PRONTO!';
-            html += '</div>';
-
-            html += '<h4>🧮 PASSO 3 - CÁLCULO FINAL</h4>';
-            html += '<div class="formula-box">';
-            html += '<strong>SOMA TOTAL:</strong><br>';
-            html += 'Frete veículo: R$ ' + valorVeiculo.toFixed(2) + '<br>';
-            html += 'GRISS: R$ ' + griss.toFixed(2) + '<br>';
-            html += 'ADV: R$ ' + adv.toFixed(2) + '<br>';
-            html += '─────────────────────────<br>';
-            html += '<strong>TOTAL GERAL: R$ ' + totalGeral.toFixed(2) + '</strong>';
-            html += '</div>';
-
-            html += '<h4>🎯 PASSO 4 - VALORES PARA O SISTEMA</h4>';
-            html += '<div class="example-box">';
-            html += '<strong>Preço por quilo:</strong><br>';
-            html += 'R$ ' + totalGeral.toFixed(2) + ' ÷ ' + peso + 'kg = <strong>R$ ' + precoKg.toFixed(4) + '/kg</strong><br><br>';
-            html += '<strong>VALOR FRETE ÔMEGA (para inserir no sistema):</strong><br>';
-            html += 'R$ ' + totalGeral.toFixed(2) + ' ÷ ' + pesoToneladas + 't = <strong style="color: #d97706; font-size: 1.2em;">R$ ' + valorOmega.toFixed(2) + '/ton</strong><br><br>';
-            html += '🎯 <strong>Este é o valor exato que você deve inserir no sistema Ômega!</strong>';
-            html += '</div>';
-
-            html += '<h4>🔍 EXEMPLO PRÁTICO</h4>';
-            html += '<div class="methodology-section">';
-            html += '<p>Imagine que você quer cotar uma carreta de 32 toneladas para SP Capital:</p>';
-            html += '<div class="formula-box">';
-            html += '<strong>Dados do exemplo:</strong><br>';
-            html += '• Veículo: Carreta 32t<br>';
-            html += '• Destino: SP Capital<br>';
-            html += '• Valor da NF: R$ 50.000,00<br><br>';
-            html += '<strong>Cálculo:</strong><br>';
-            html += '1. Frete veículo: R$ 6.980,00<br>';
-            html += '2. GRISS (0,1%): R$ 50.000 × 0,1% = R$ 50,00<br>';
-            html += '3. ADV (0,15%): R$ 50.000 × 0,15% = R$ 75,00<br>';
-            html += '4. Total: R$ 6.980 + R$ 50 + R$ 75 = <strong>R$ 7.105,00</strong><br>';
-            html += '5. Valor Ômega: R$ 7.105 ÷ 32t = <strong>R$ 222,03/ton</strong>';
-            html += '</div>';
-            html += '</div>';
-
-            html += '<div class="warning-box">';
-            html += '<strong>🔒 INFORMAÇÕES IMPORTANTES:</strong><br>';
-            html += '• <strong>Prazo:</strong> ' + (dados.prazo || '24 horas') + '<br>';
-            html += '• <strong>ICMS:</strong> NÃO incluído (ser aplicado conforme legislação)<br>';
-            html += '• <strong>Cubagem:</strong> Não se aplica (veículo completo)<br>';
-            html += '• <strong>Paletes:</strong> Já incluído na capacidade do veículo<br>';
-            html += '• Este valor é válido por 60 dias conforme tabela';
-            html += '</div>';
-
-            document.getElementById('lotacaoMethodology').innerHTML = html;
         }
 
         function fecharModal() {
